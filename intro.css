@@ -1,0 +1,285 @@
+@font-face {
+  font-family: 'Invitation Serif';
+  src: url('assets/fonts/heldane-regular.otf') format('opentype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Invitation Serif';
+  src: url('assets/fonts/heldane-italic.otf') format('opentype');
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Invitation Script';
+  src: url('assets/fonts/aramis-italic.ttf') format('truetype');
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+
+.name-overlay {
+  overflow-y: auto;
+  grid-template-rows: minmax(min-content, 1fr);
+  align-items: safe center;
+  background: radial-gradient(ellipse at center, #23150f70, #180e0bd4);
+}
+
+.name-overlay form { width: min(100%, 336px); }
+
+.name-overlay h1 {
+  margin: 16px 0 14px;
+  font-size: clamp(25px, 7vw, 36px);
+}
+
+.name-overlay p { font-size: 15px; }
+.name-overlay p.eyebrow,
+.name-overlay label { font-size: 13px; }
+.name-overlay input { min-height: 48px; }
+
+.name-overlay .primary {
+  min-height: 48px;
+  font-size: 14px;
+  letter-spacing: .08em;
+}
+
+/* Keep the live lettering inside the exposed part of the photographed sheet. */
+.photo-letter {
+  padding: 5% 4% 0;
+  clip-path: polygon(0 0, 100% 0, 100% 59%, 66% 100%, 34% 100%, 0 59%);
+}
+
+.photo-title {
+  display: block;
+  flex-shrink: 0;
+  width: 100%;
+  margin-bottom: 1.8cqw;
+  color: #53342d;
+  text-align: left;
+}
+
+.photo-title .youre {
+  display: block;
+  margin-left: 8%;
+  font: italic 400 9.6cqw/.92 'Invitation Script', 'Invitation Serif', cursive;
+}
+
+.photo-title .invited {
+  display: block;
+  padding-right: 7%;
+  font: italic 400 11.5cqw/1 'Invitation Script', 'Invitation Serif', cursive;
+  text-align: right;
+}
+
+.photo-to {
+  width: 100%;
+  margin: 0 0 1cqw;
+  font-size: clamp(12px, 2.8cqw, 19px);
+  line-height: 1.4;
+}
+
+.photo-message {
+  font-size: clamp(11px, 2.5cqw, 17px);
+  line-height: 1.6;
+}
+
+.photo-controls .hint,
+.photo-controls .link-button { font-size: 13px; }
+.photo-controls .link-button { min-height: 44px; }
+
+/* A bright paper edge and a soft halo outside the clickable area. */
+.photo-scene::after {
+  content: '';
+  position: absolute;
+  z-index: 1;
+  top: 17.3%;
+  left: 17.8%;
+  right: 17.35%;
+  height: 27%;
+  pointer-events: none;
+  border: 2px solid #fff0ce;
+  border-bottom: 0;
+  filter: drop-shadow(0 0 4px #ffd38b) drop-shadow(0 0 9px #ffc485);
+  mask-image: linear-gradient(black 67%, transparent);
+  opacity: 0;
+}
+
+.envelope-stage:not(.awaiting-name) .photo-scene:not(.opening)::after {
+  animation: letter-edge-glow 2.4s ease-in-out infinite alternate;
+  opacity: .75;
+}
+
+@keyframes letter-edge-glow {
+  from { opacity: .58; }
+  to { opacity: 1; }
+}
+
+.photo-letter:focus-visible .photo-title {
+  text-shadow: 0 0 5px #fff4dd;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .envelope-stage:not(.awaiting-name) .photo-scene:not(.opening)::after {
+    animation: none;
+  }
+}
+
+body {
+  background: #38181d url('assets/velvet.jpg') center / cover no-repeat fixed;
+}
+
+.envelope-photo {
+  filter: drop-shadow(-8px 14px 14px #16080ba8);
+}
+
+.name-overlay {
+  backdrop-filter: blur(4px);
+}
+
+.photo-title, .photo-to, .photo-message { position: relative; }
+
+.engraved-card {
+  background: transparent;
+  box-shadow: none;
+  filter: drop-shadow(-6px 12px 12px #16080b80);
+}
+
+.paper-surface {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+}
+
+.paper-surface img {
+  position: absolute;
+  width: 131.32%;
+  height: 131.39%;
+  max-width: none;
+  left: -15.55%;
+  top: -15.69%;
+}
+
+.invitation-art {
+  position: absolute;
+  left: 5%;
+  top: 33%;
+  width: 90%;
+  height: 45%;
+  object-fit: contain;
+  pointer-events: none;
+}
+
+.engraved-stock { pointer-events: none; }
+
+.name-overlay p {
+  word-break: keep-all;
+  overflow-wrap: break-word;
+}
+
+
+
+.engraved-card .print-script { font-style: italic; }
+
+@media (max-width: 480px) {
+  main { overflow-x: clip; }
+
+  .photo-scene {
+    width: calc(100% + 16px);
+    margin-inline: -8px;
+  }
+}
+
+@media (max-width: 360px) {
+  .photo-title .youre { font-size: 9cqw; }
+  .photo-title .invited { font-size: 10.5cqw; }
+  .photo-message { line-height: 1.45; }
+}
+
+.invitation-wrap.returning-letter .engraved-card,
+.invitation-wrap.returning-letter > #back { visibility: hidden; }
+
+.letter-return {
+  position: fixed;
+  z-index: 5;
+  transform-origin: center;
+  pointer-events: none;
+  background: #eee5d7 url('assets/postcard-paper.png') center / cover;
+  box-shadow: 0 12px 24px #200b1070;
+}
+
+.letter-return .engraved-card {
+  position: absolute;
+  inset: 0;
+  text-align: center;
+  animation: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .envelope-stage.letter-resurfaced {
+    animation: envelope-resurface .92s cubic-bezier(.2,.65,.3,1) both;
+  }
+
+  .envelope-stage.envelope-from-left {
+    animation: envelope-enter-from-left .7s cubic-bezier(.2,.65,.3,1) both;
+  }
+}
+
+@keyframes envelope-resurface {
+  from { opacity: 0; transform: translateY(85px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes envelope-enter-from-left {
+  from { opacity: 0; transform: translateX(-85px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+
+@property --eyelid-opening {
+  syntax: '<percentage>';
+  inherits: false;
+  initial-value: 1%;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .name-overlay.waking { --wake-duration: 3.4s; }
+
+  .name-overlay.waking::after {
+    content: '';
+    position: absolute;
+    z-index: 1;
+    inset: 0;
+    pointer-events: none;
+    background: #10080a;
+    -webkit-mask-image: radial-gradient(ellipse 77% var(--eyelid-opening) at center, transparent 88%, #000 100%);
+    mask-image: radial-gradient(ellipse 77% var(--eyelid-opening) at center, transparent 88%, #000 100%);
+    animation: eyes-opening var(--wake-duration) ease-in-out both;
+  }
+
+  .name-overlay.waking form {
+    animation: eyes-focusing var(--wake-duration) ease-in-out both;
+  }
+}
+
+@keyframes eyes-opening {
+  0% { --eyelid-opening: 1%; opacity: 1; }
+  26%, 35% { --eyelid-opening: 49%; opacity: 1; }
+  43% { --eyelid-opening: 8%; opacity: .92; }
+  55%, 64% { --eyelid-opening: 75%; opacity: .84; }
+  72% { --eyelid-opening: 24%; opacity: .68; }
+  89% { --eyelid-opening: 115%; opacity: .28; }
+  100% { --eyelid-opening: 150%; opacity: 0; }
+}
+
+@keyframes eyes-focusing {
+  0% { filter: blur(14px); opacity: 0; }
+  26%, 35% { filter: blur(9px); opacity: .74; }
+  43% { filter: blur(11px); opacity: .64; }
+  55%, 64% { filter: blur(5px); opacity: .9; }
+  72% { filter: blur(6px); opacity: .84; }
+  100% { filter: none; opacity: 1; }
+}
