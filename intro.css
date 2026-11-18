@@ -34,9 +34,14 @@
 .name-overlay h1 {
   margin: 16px 0 14px;
   font-size: clamp(25px, 7vw, 36px);
+  word-break: keep-all;
 }
 
 .name-overlay p { font-size: 15px; }
+.name-overlay p.intro-copy {
+  font-size: clamp(12px, 3.4vw, 15px);
+  text-wrap: balance;
+}
 .name-overlay p.eyebrow,
 .name-overlay label { font-size: 13px; }
 .name-overlay input { min-height: 48px; }
